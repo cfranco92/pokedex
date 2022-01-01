@@ -1,9 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, FlatList } from "react-native";
 import { Pokemon } from "../models/pokemon";
+import PokemonCard from "./PokemonCard";
 
 export interface PokemonListProps {
-  pokemons: Partial<Pokemon>[];
+  pokemons: Pokemon[];
 }
 
 const PokemonList = ({ pokemons }: PokemonListProps) => {
@@ -13,8 +14,8 @@ const PokemonList = ({ pokemons }: PokemonListProps) => {
       data={pokemons}
       numColumns={2}
       showsVerticalScrollIndicator={false}
-      keyExtractor={(pokemon: Partial<Pokemon>) => String(pokemon.id)}
-      renderItem={({ item }) => <Text>{item.name}</Text>}
+      keyExtractor={(pokemon: Pokemon) => String(pokemon.id)}
+      renderItem={({ item }) => <PokemonCard pokemon={item} />}
       contentContainerStyle={styles.flatListContentContainer}
     />
   );
