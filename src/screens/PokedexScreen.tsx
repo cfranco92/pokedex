@@ -6,6 +6,7 @@ import { Pokemon } from "../models/pokemon";
 
 const PokedexScreen = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [nextUrl, setNextUrl] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -15,7 +16,8 @@ const PokedexScreen = () => {
 
   const loadPokemons = async () => {
     try {
-      const response = await getPokemonsApi();
+      const response = await getPokemonsApi(nextUrl);
+      setNextUrl(response.next);
 
       const pokemonsArray: Pokemon[] = [];
       for await (const pokemon of response.results) {
@@ -38,7 +40,11 @@ const PokedexScreen = () => {
 
   return (
     <SafeAreaView>
-      <PokemonList pokemons={pokemons} />
+      <PokemonList
+        pokemons={pokemons}
+        loadPokemons={loadPokemons}
+        isNext={nextUrl}
+      />
     </SafeAreaView>
   );
 };
