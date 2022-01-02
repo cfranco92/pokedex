@@ -10,16 +10,28 @@ import { Pokemon } from "../models/pokemon";
 import getColorByPokemonType from "../utils/getColorByPokemonType";
 import capitalize from "lodash/capitalize";
 
+import { useNavigation } from "@react-navigation/native";
+
 export interface PokemonCardProps {
   pokemon: Pokemon;
 }
 
 const PokemonCard = ({ pokemon }: PokemonCardProps) => {
+  const navigation = useNavigation();
+
   const pokemonColor = getColorByPokemonType(pokemon.type);
   const bgStyles = { backgroundColor: pokemonColor, ...styles.bgStyles };
 
   const goToPokemon = () => {
-    console.log("Go to pokemon " + pokemon.name);
+    navigation.navigate({
+      name: "Pokemon",
+      params: { id: pokemon.id },
+    } as {
+      key: string;
+      name: string;
+      params: any;
+      path: string;
+    });
   };
 
   return (
