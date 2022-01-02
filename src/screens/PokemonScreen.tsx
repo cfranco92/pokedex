@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { ScrollView } from "react-native";
 import { getPokemonDetailsApi } from "../api/pokemon";
+import Header from "../components/Pokemon/Header";
 import { Pokemon } from "../models/pokemon";
 
 export interface PokemonScreenProps {
@@ -12,7 +13,7 @@ const PokemonScreen = ({
   navigation,
   route: { params },
 }: PokemonScreenProps) => {
-  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
+  const [pokemon, setPokemon] = useState<Pokemon | any | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -30,10 +31,14 @@ const PokemonScreen = ({
   if (!pokemon) return null;
 
   return (
-    <View>
-      <Text>We're in a Pokemon</Text>
-      <Text>{pokemon.name}</Text>
-    </View>
+    <ScrollView>
+      <Header
+        name={pokemon.name}
+        order={pokemon.order}
+        image={pokemon.sprites.other["official-artwork"].front_default}
+        type={pokemon.types[0].type.name}
+      />
+    </ScrollView>
   );
 };
 
