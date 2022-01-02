@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView } from "react-native";
-import { getPokemonDetailsApi } from "../api/pokemon";
+
 import Header from "../components/Pokemon/Header";
-import Type from "../components/Pokemon/Type";
 import { Pokemon } from "../models/pokemon";
+import { ScrollView } from "react-native";
+import Stats from "../components/Pokemon/Stats";
+import Type from "../components/Pokemon/Type";
+import { getPokemonDetailsApi } from "../api/pokemon";
 
 export interface PokemonScreenProps {
   navigation: { goBack: () => void };
@@ -40,6 +42,7 @@ const PokemonScreen = ({
         type={pokemon.types[0].type.name}
       />
       <Type types={pokemon.types} />
+      <Stats stats={pokemon.stats} />
     </ScrollView>
   );
 };
