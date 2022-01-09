@@ -1,14 +1,14 @@
 import React from "react";
-
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { addPokemonFavoriteApi } from "../../api/favorite";
 
 interface FavoriteProps {
   id: string;
 }
 
 const Favorite = ({ id }: FavoriteProps) => {
-  const addFavorite = () => {
-    console.log("Added to favorites", id);
+  const addFavorite = async () => {
+    await addPokemonFavoriteApi(id);
   };
 
   return (
