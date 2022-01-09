@@ -1,13 +1,16 @@
+import React, { useState } from "react";
+
 import * as Yup from "yup";
 
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import React, { useState } from "react";
 import { user, userDetails } from "../../utils/userDB";
 
+import useAuth from "../../hooks/useAuth";
 import { useFormik } from "formik";
 
 const LogingForm = () => {
   const [error, setError] = useState("");
+  const { login } = useAuth();
 
   const formik = useFormik({
     initialValues,
@@ -16,12 +19,13 @@ const LogingForm = () => {
     onSubmit: (formValue) => {
       setError("");
       const { username, password } = formValue;
-
-      if (username !== user.username || password !== user.password) {
-        setError("The user or the password are wrong");
-      } else {
-        console.log("Log in successfully");
-        console.log(formValue);
+      if (user) {
+        if (username !== user.username || password !== user.password) {
+          setError("The user or the password are wrong");
+        } else {
+          login(userDetails);
+          console.log("Log in successfully");
+        }
       }
     },
   });
