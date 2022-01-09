@@ -6,11 +6,7 @@ import { FAVORITE_STORAGE } from '../utils/constants';
 export const getPokemonsFavoritesApi = async() => {
  try {
    const response = await AsyncStorage.getItem(FAVORITE_STORAGE)
-   if (response) {
-     return JSON.parse(response)
-   } else {
-     return []
-   }
+  return JSON.parse(response || '[]')
  } catch (error) {
    throw error;
  } 
@@ -32,5 +28,15 @@ export const isPokemonFavoriteApi = async (id: string) => {
     return includes(response, id)
   } catch (error) {
     throw error;
+  }
+}
+
+export const removePokemonFavoriteApi = async (id: string) => {
+  try {
+    const favorites = await getPokemonsFavoritesApi();
+    const newFavorites = pull(favorites, id)
+    await AsyncStorage.setItem(FAVORITE_STORAGE, JSON.stringify(newFavorites));
+  } catch (error) {
+    throw error
   }
 }
