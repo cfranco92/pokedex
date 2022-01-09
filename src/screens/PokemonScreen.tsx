@@ -32,18 +32,20 @@ const PokemonScreen = ({
   const { user } = useAuth();
 
   useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (user ? <Favorite id={pokemon.id} /> : undefined),
-      headerLeft: () => (
-        <Icon
-          name="arrow-left"
-          size={20}
-          style={{ marginLeft: 20 }}
-          onPress={navigation.goBack}
-        />
-      ),
-    });
-  }, [navigation, params]);
+    if (user && pokemon) {
+      navigation.setOptions({
+        headerRight: () => (user ? <Favorite id={pokemon.id} /> : undefined),
+        headerLeft: () => (
+          <Icon
+            name="arrow-left"
+            size={20}
+            style={{ marginLeft: 20 }}
+            onPress={navigation.goBack}
+          />
+        ),
+      });
+    }
+  }, [navigation, params, user, pokemon]);
 
   useEffect(() => {
     (async () => {
