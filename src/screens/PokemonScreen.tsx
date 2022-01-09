@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import Favorite from "../components/Pokemon/Favorite";
 import Header from "../components/Pokemon/Header";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { Pokemon } from "../models/pokemon";
@@ -7,6 +8,7 @@ import { ScrollView } from "react-native";
 import Stats from "../components/Pokemon/Stats";
 import Type from "../components/Pokemon/Type";
 import { getPokemonDetailsApi } from "../api/pokemon";
+import useAuth from "../hooks/useAuth";
 
 export interface PokemonScreenProps {
   navigation: {
@@ -27,10 +29,11 @@ const PokemonScreen = ({
   route: { params },
 }: PokemonScreenProps) => {
   const [pokemon, setPokemon] = useState<Pokemon | any | null>(null);
+  const { user } = useAuth();
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => null,
+      headerRight: () => (user ? <Favorite id={pokemon.id} /> : undefined),
       headerLeft: () => (
         <Icon
           name="arrow-left"
