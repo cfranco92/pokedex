@@ -2,7 +2,13 @@ import React, { ReactChild, createContext, useState } from "react";
 import { User, UserDetails } from "../models/userData";
 
 export const AuthContext = createContext({
-  user: undefined,
+  user: {
+    firtsName: "",
+    username: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+  },
   login: (userData: any) => {},
   logout: () => {},
 });
@@ -22,7 +28,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setUser(undefined);
   };
 
-  const valueContext = {
+  const valueContext: {
+    user: any;
+    login: (userData: any) => void;
+    logout: () => void;
+  } = {
     user,
     login,
     logout,
