@@ -1,16 +1,17 @@
+import React from "react";
+
 import AccountScreen from "../screens/AccountScreen";
 import FavoriteNavigation from "./FavoritesNavigation";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { Image } from "react-native";
 import PokedexNavigation from "./PokedexNavigation";
-import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Tab = createBottomTabNavigator();
 
 const Navigation = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator initialRouteName="Pokedex Tab Screen">
       <Tab.Screen
         name="Favorite Tab Screen"
         component={FavoriteNavigation}
