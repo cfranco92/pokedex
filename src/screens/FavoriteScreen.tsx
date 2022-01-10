@@ -8,6 +8,7 @@ import { getPokemonDetailsApi } from "../api/pokemon";
 import { getPokemonsFavoritesApi } from "../api/favorite";
 import useAuth from "../hooks/useAuth";
 import { useFocusEffect } from "@react-navigation/native";
+import NoLogged from "../components/NoLogged";
 
 const FavoriteScreen = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -39,7 +40,7 @@ const FavoriteScreen = () => {
   );
 
   return !user ? (
-    <Text>User not logged in</Text>
+    <NoLogged/>
   ) : (
     <PokemonList pokemons={pokemons} />
   );
