@@ -1,22 +1,24 @@
 import React from "react";
+
 import {
-  StyleSheet,
-  FlatList,
   ActivityIndicator,
+  FlatList,
   Platform,
+  StyleSheet,
 } from "react-native";
+
 import { Pokemon } from "../models/pokemon";
 import PokemonCard from "./PokemonCard";
 
 export interface PokemonListProps {
   pokemons: Pokemon[];
-  loadPokemons: () => void;
-  isNext: string | null | any;
+  loadPokemons?: () => void;
+  isNext?: string | null | any;
 }
 
 const PokemonList = ({ pokemons, loadPokemons, isNext }: PokemonListProps) => {
   const loadMore = () => {
-    loadPokemons();
+    loadPokemons && loadPokemons();
   };
 
   return (
